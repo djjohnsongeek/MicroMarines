@@ -31,9 +31,10 @@ namespace Micro_Marine.src
             Position += distance;
         }
 
-        public static void Update(float dt)
+        public static void Update(GameTime gameTime)
         {
-            Move(getVelocity(dt));
+            double deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
+            Move(getVelocity(deltaTime));
 
            // Util.Print($"CAMERA: {Position.X}, {Position.Y}");
         }
@@ -53,10 +54,10 @@ namespace Micro_Marine.src
             return Vector2.Transform(screenLocation, Matrix.Invert(GetTransformation()));
         }
 
-        private static Vector2 getVelocity(float dt)
+        private static Vector2 getVelocity(double dt)
         {
-            float dx = 0f;
-            float dy = 0f;
+            double dx = 0f;
+            double dy = 0f;
 
             // left scroll
             if (Input.mState.X < edgeBuffer)
@@ -82,7 +83,7 @@ namespace Micro_Marine.src
                 dy = -(speed * dt);
             }
 
-            return new Vector2(dx, dy);
+            return new Vector2((float)dx, (float)dy);
         }
 
 

@@ -14,11 +14,11 @@ namespace Micro_Marine.src.states
             this.unit = unit;
         }
         public virtual void Exit() { }
-        public virtual void Update(float dt)
+        public virtual void Update(GameTime gameTime)
         {
-            unit.UpdateReadyForCommand(dt);
+            double deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
             unit.UpdateSelection();
-            unit.Animation.Update(dt);
+            unit.Animation.Update(deltaTime);
         }
         public virtual void Draw(SpriteBatch sBatch) 
         {

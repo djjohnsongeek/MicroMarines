@@ -4,7 +4,7 @@ namespace Micro_Marine.src
     class Animation
     {
         private float interval;
-        private float timePassed;
+        private double timePassed;
         private int[] frames;
         private int currentFrame;
         private bool loop;
@@ -18,13 +18,13 @@ namespace Micro_Marine.src
             this.timePassed = 0f;
         }
 
-        public void Update(float dt)
+        public void Update(double dt)
         {
             timePassed += dt;
             if (timePassed >= interval)
             {
                 setNextFrame();
-                timePassed = 0f;
+                timePassed = 0d;
             }
         }
 

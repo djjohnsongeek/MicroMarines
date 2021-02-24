@@ -17,9 +17,9 @@ namespace Micro_Marine.src.states.unit
             unit.Animation.SetInterval(0.15f);
         }
 
-        public override void Update(float dt)
+        public override void Update(GameTime gameTime)
         {
-            base.Update(dt);
+            base.Update(gameTime);
             if (unit.ReceivesMoveCommand())
             {
                 unit.OverWriteWaypoints();

@@ -63,7 +63,6 @@ namespace Micro_Marine.src
         // commands
         public bool Selected = false;
         public bool ReadyForCommand = true;
-        private float commandTimer = 0f;
 
         public Unit(ContentManager Content, string spriteSheetName, ushort unitId)
         {
@@ -89,9 +88,9 @@ namespace Micro_Marine.src
         }
 
         // [ MAIN GAME LOOP ] //
-        public void Update(float dt)
+        public void Update(GameTime gameTime)
         {
-            State.CurrentState.Update(dt);
+            State.CurrentState.Update(gameTime);
             // Util.Print($"UNIT: {Position.X}, {Position.Y}");
         }
         public void Draw(SpriteBatch sBatch)
@@ -114,18 +113,7 @@ namespace Micro_Marine.src
                 }
             }
         }
-        public void UpdateReadyForCommand(float dt)
-        {
-            if (!ReadyForCommand)
-            {
-                commandTimer += dt;
-                if (commandTimer >= 0.133f)
-                {
-                    ReadyForCommand = true;
-                    commandTimer = 0f;
-                }
-            }
-        }
+
         public bool ReceivesMoveCommand()
         {
             return (Input.mState.RightButton == ButtonState.Pressed) &&
@@ -148,13 +136,12 @@ namespace Micro_Marine.src
         {
             Vector2 newWaypoint = Input.GetMouseWorldPos();
 
-            if (newWaypoint != Camera.GetWorldLocation(Position))
+            if (isValidWaypoint(newWaypoint))
             {
                 Waypoints.Clear();
                 currentWaypoint = null;
                 travelDistance = 0;
                 Waypoints.Enqueue(newWaypoint);
-                ReadyForCommand = false;
             }
         }
         public void GetNextWaypoint()
@@ -336,6 +323,18 @@ namespace Micro_Marine.src
             travelDistance = 0;
             baseDistance.X = 0;
             baseDistance.Y = 0;
+        }
+
+        private bool isValidWaypoint(Vector2 newWaypoint)
+        {
+            bool waypointEqualsUnitPos = newWaypoint != Camera.GetWorldLocation(Position);
+            if (Waypoints.Count == 0)
+            {
+                return waypointEqualsUnitPos;
+            }
+
+
+            return waypointEqualsUnitPos && newWaypoint != Waypoints.Peek();
         }
     }
 }

@@ -30,9 +30,9 @@ namespace Micro_Marine.src.states.unit
             }
         }
 
-        public void Update(float dt)
+        public void Update(GameTime gameTime)
         {
-            CurrentState.Update(dt);
+            CurrentState.Update(gameTime);
         }
 
         public void Draw(SpriteBatch sBatch)

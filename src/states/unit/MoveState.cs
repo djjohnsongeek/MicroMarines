@@ -17,9 +17,10 @@ namespace Micro_Marine.src.states.unit
             unit.Animation.SetInterval(0.05f);
         }
 
-        public override void Update(float dt)
+        public override void Update(GameTime gameTime)
         {
-            base.Update(dt);
+            base.Update(gameTime);
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (unit.ReceivesMoveCommand())
             {
@@ -33,7 +34,7 @@ namespace Micro_Marine.src.states.unit
             }
 
             unit.GetNextWaypoint();
-            unit.FollowWaypoints(dt);
+            unit.FollowWaypoints(deltaTime);
         }
     }
 }

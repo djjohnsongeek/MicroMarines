@@ -4,28 +4,22 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Micro_Marine.src
 {
-    class UnitManager
+    class UnitManager // Handles unit selection
     {
-        private Queue<Vector2> waypoints;
         private Dictionary<ushort, Unit> selectedUnits;
         private Dictionary<ushort, Unit> units;
         private ushort id_counter;
-        private ContentManager content;
 
         public UnitManager(ContentManager content)
         {
             units = new Dictionary<ushort, Unit>();
-
-            // initial scout
-            addUnit(units, "marine-Sheet32");
-
             selectedUnits = new Dictionary<ushort, Unit>();
-            waypoints = new Queue<Vector2>();
         }
 
         public void Update(float dt)
         {
             // update unit selection
+
             // update unit actions
         }
 
@@ -35,30 +29,24 @@ namespace Micro_Marine.src
         }
 
 
-        private void addUnit(Dictionary<ushort, Unit> units, string spriteSheet)
-        {
-            units.Add(id_counter, new Unit(content, spriteSheet, id_counter));
-            incrementIdCounter();
-        }
-
         private void selectUnit(ushort id)
         {
             Unit unit = units[id];
             selectedUnits.Add(id, unit);
-            units.Remove(id);
         }
 
         private void deselectUnit(ushort id)
         {
-            Unit unit = selectedUnits[id];
-            units.Add(id, unit);
             selectedUnits.Remove(id);
         }
 
         private void deleteUnit(ushort id)
         {
             units.Remove(id);
-            selectedUnits.Remove(id);
+            if (selectedUnits.ContainsKey(id))
+            {
+                selectedUnits.Remove(id);
+            }
         }
 
         private void incrementIdCounter()

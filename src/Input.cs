@@ -33,14 +33,38 @@ namespace Micro_Marine.src
             return prevKState.IsKeyUp(key) && kState.IsKeyDown(key);
         }
 
+        public static bool KeyIsDown(Keys key)
+        {
+            return kState.IsKeyDown(key);
+        }
+
         public static bool LeftMouseWasPressed()
         {
             return prevMState.LeftButton == ButtonState.Pressed && mState.LeftButton == ButtonState.Released;
         }
 
+        public static bool RightMouseWasPressed()
+        {
+            return prevMState.RightButton == ButtonState.Pressed && mState.RightButton == ButtonState.Released;
+        }
+
         public static Vector2 GetMouseWorldPos()
         {
             return Camera.GetWorldLocation(new Vector2(mState.X, mState.Y));
+        }
+
+        public static bool MouseCollides(Unit unit)
+        {
+            Vector2 unitPosition = unit.GetPosition();
+            int unitHeight = unit.GetHeight();
+            int unitWidth = unit.GetWidth();
+
+            Vector2 mousePos = GetMouseWorldPos();
+
+            return (mousePos.X >= (unitPosition.X - unitWidth / 2)) &&
+                   (mousePos.X <= (unitPosition.X + unitWidth / 2)) &&
+                   (mousePos.Y >= (unitPosition.Y - unitHeight / 2)) &&
+                   (mousePos.Y <= (unitPosition.Y + unitHeight / 2));
         }
     }
 }

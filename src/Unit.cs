@@ -90,18 +90,18 @@ namespace Micro_Marine.src
         // [ MAIN GAME LOOP ] //
         public void Update(GameTime gameTime)
         {
-            State.CurrentState.Update(gameTime);
+            State.Update(gameTime);
             // Util.Print($"UNIT: {Position.X}, {Position.Y}");
         }
         public void Draw(SpriteBatch sBatch)
         {
-            State.CurrentState.Draw(sBatch);
+            State.Draw(sBatch);
         }
 
         // [ PUBIC METHODS ] //
         public void UpdateSelection()
         {
-            if (Util.MouseCollides(this) && Input.LeftMouseWasPressed())
+            if (Input.MouseCollides(this) && Input.LeftMouseWasPressed())
             {
                Selected = true;
             }
@@ -116,19 +116,11 @@ namespace Micro_Marine.src
 
         public bool ReceivesMoveCommand()
         {
-            return (Input.mState.RightButton == ButtonState.Pressed) &&
-                   (Input.prevMState.RightButton != ButtonState.Pressed) &&
-                    !Input.kState.IsKeyDown(Keys.LeftShift) &&
-                    Selected &&
-                    ReadyForCommand;
+            return Input.RightMouseWasPressed() && !Input.KeyIsDown(Keys.LeftShift) && Selected;
         }
         public bool ReceivesQueueCommand()
         {
-            return (Input.mState.RightButton == ButtonState.Pressed) &&
-                   (Input.prevMState.RightButton != ButtonState.Pressed) &&
-                    Input.kState.IsKeyDown(Keys.LeftShift) &&
-                    Selected &&
-                    ReadyForCommand;
+            return Input.RightMouseWasPressed() && Input.KeyIsDown(Keys.LeftShift) && Selected;
         }
 
         // TODO NEED TO RENAME

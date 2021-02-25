@@ -4,21 +4,21 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Micro_Marine.src
 {
-    class UnitManager // Handles unit selection
+    class UnitManager // Handles unit selection, deletion
     {
         private Dictionary<ushort, Unit> selectedUnits;
-        private Dictionary<ushort, Unit> units;
-        private ushort id_counter;
+        private List<Unit> units;
 
-        public UnitManager(ContentManager content)
+        public UnitManager(List<Unit> units)
         {
-            units = new Dictionary<ushort, Unit>();
             selectedUnits = new Dictionary<ushort, Unit>();
+            this.units = units;
         }
 
         public void Update(float dt)
         {
             // update unit selection
+
 
             // update unit actions
         }
@@ -42,20 +42,10 @@ namespace Micro_Marine.src
 
         private void deleteUnit(ushort id)
         {
-            units.Remove(id);
             if (selectedUnits.ContainsKey(id))
             {
                 selectedUnits.Remove(id);
             }
-        }
-
-        private void incrementIdCounter()
-        {
-            if (id_counter == ushort.MaxValue)
-            {
-                // throw error at some point
-            }
-            id_counter++;
         }
     }
 }

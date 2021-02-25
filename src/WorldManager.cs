@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -38,6 +39,13 @@ namespace Micro_Marine.src
             {
                 unit.Update(gameTime);
             }
+
+            if (Input.KeyWasPressed(Keys.Space))
+            {
+                addUnit();
+            }
+
+            // Util.Print($"{Units.Count}");
         }
 
         public void Draw()

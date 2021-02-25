@@ -101,13 +101,13 @@ namespace Micro_Marine.src
         // [ PUBIC METHODS ] //
         public void UpdateSelection()
         {
-            if (Util.MouseCollides(this) && Input.mState.LeftButton == ButtonState.Pressed)
+            if (Util.MouseCollides(this) && Input.LeftMouseWasPressed())
             {
                Selected = true;
             }
             else
             {
-                if (Input.mState.LeftButton == ButtonState.Pressed)
+                if (Input.LeftMouseWasPressed())
                 {
                    Selected = false;
                 }

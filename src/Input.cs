@@ -23,6 +23,21 @@ namespace Micro_Marine.src
             prevMState = mState;
         }
 
+        public static bool KeyWasReleased(Keys key)
+        {
+            return prevKState.IsKeyDown(key) && kState.IsKeyUp(key);
+        }
+
+        public static bool KeyWasPressed(Keys key)
+        {
+            return prevKState.IsKeyUp(key) && kState.IsKeyDown(key);
+        }
+
+        public static bool LeftMouseWasPressed()
+        {
+            return prevMState.LeftButton == ButtonState.Pressed && mState.LeftButton == ButtonState.Released;
+        }
+
         public static Vector2 GetMouseWorldPos()
         {
             return Camera.GetWorldLocation(new Vector2(mState.X, mState.Y));

@@ -30,7 +30,6 @@ namespace Micro_Marine.src.states.unit
             if (unit.ReceivesQueueCommand())
             {
                 unit.Waypoints.Enqueue(Input.GetMouseWorldPos());
-                unit.ReadyForCommand = false;
             }
 
             unit.GetNextWaypoint();

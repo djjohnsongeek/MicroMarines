@@ -20,6 +20,7 @@ namespace Micro_Marine.src.states.unit
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
             if (unit.ReceivesMoveCommand())
             {
                 unit.OverWriteWaypoints();
@@ -29,7 +30,6 @@ namespace Micro_Marine.src.states.unit
             if (unit.ReceivesQueueCommand())
             {
                 unit.Waypoints.Enqueue(Input.GetMouseWorldPos());
-                unit.ReadyForCommand = false;
                 unit.State.Change("move");
             }
         }

@@ -10,22 +10,22 @@ namespace Micro_Marine.src
     {
         private Texture2D texture;
         private Rectangle? rect;
+        private Rectangle? selectRect;
         private Vector2? startVector;
-        private Unit unit;
 
-        public SelectBox(GraphicsDevice graphicsDevice, Unit unit)
+        public SelectBox(GraphicsDevice graphicsDevice)
         {
             rect = null;
+            selectRect = null;
             startVector = null;
             texture = new Texture2D(graphicsDevice, 1, 1);
             texture.SetData(new Color[] { Color.White });
-            this.unit = unit;
         }
 
         public void Update()
         {
             // mouse button held down
-            if (Input.mState.LeftButton == ButtonState.Pressed && Input.prevMState.LeftButton == ButtonState.Pressed)
+            if (Input.LeftMouseIsPressed())
             {
                 if (startVector == null)
                 {
@@ -37,17 +37,29 @@ namespace Micro_Marine.src
                     rect = getRectangle(endVector.X - startVector.Value.X, endVector.Y - startVector.Value.Y);
                 }
             }
-            // mouse button released
-            else if (Input.mState.LeftButton != ButtonState.Pressed && Input.prevMState.LeftButton == ButtonState.Pressed)
-            {
-                if (rect.Value.Intersects(unit.GetRectangle()))
-                {
-                    unit.Selected = true;
-                }
 
+            // mouse button released
+            else if (Input.LeftMouseWasPressed())
+            {
+                selectRect = rect;
                 rect = null;
                 startVector = null;
             }
+        }
+
+        public void CheckSelection(Unit unit)
+        {
+            if (selectRect == null) return;
+
+            if (selectRect.Value.Intersects(unit.GetRectangle()))
+            {
+                unit.Selected = true;
+            }
+        }
+
+        public void ResetSelection()
+        {
+            selectRect = null;
         }
 
         public void Draw(SpriteBatch spriteBatch)

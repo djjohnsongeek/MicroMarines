@@ -17,6 +17,7 @@ namespace Micro_Marine.src
         // managers
         private ContentManager contentManager;
         private SpriteBatch spriteBatch;
+        private UnitManager unitManager;
 
         // map
 
@@ -25,6 +26,7 @@ namespace Micro_Marine.src
         {
             contentManager = content;
             this.spriteBatch = spriteBatch;
+            unitManager = new UnitManager(Units, spriteBatch);
         }
 
         public void Load()
@@ -35,10 +37,8 @@ namespace Micro_Marine.src
 
         public void Update(GameTime gameTime)
         {
-            foreach (Unit unit in Units)
-            {
-                unit.Update(gameTime);
-            }
+
+            unitManager.Update(gameTime);
 
             if (Input.KeyWasPressed(Keys.Space))
             {
@@ -50,13 +50,7 @@ namespace Micro_Marine.src
 
         public void Draw()
         {
-            // draw map
-
-            // draw units
-            foreach (Unit unit in Units)
-            {
-                unit.Draw(spriteBatch);
-            }
+            unitManager.Draw();
         }
 
         private void addUnit()

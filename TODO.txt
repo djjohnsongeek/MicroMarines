@@ -2,24 +2,6 @@ TODO list
 
 // understand new vs override: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/knowing-when-to-use-override-and-new-keywords
 
-// create a selectionManager class
-
-selectionManger
-- handles unit selection
-- returns either a unit or a unitGroup
-
-unit or unit group handles movement/orders
-	- unit: update waypoints
-
-unitGroup or unit
-- waypoints last even after selection
-- orders need to persist until they are completed
-
-
-	- handles the current selection's waypoints
-	- updates unit selection
-	- handles waypoint markers
-
 // create path or waypoints class
 	- handles the drawing of waypoint markers
 	- handles the disappearing of waypoint markers

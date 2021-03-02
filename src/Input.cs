@@ -48,6 +48,11 @@ namespace Micro_Marine.src
             return prevMState.RightButton == ButtonState.Pressed && mState.RightButton == ButtonState.Released;
         }
 
+        public static bool LeftMouseIsPressed()
+        {
+            return mState.LeftButton == ButtonState.Pressed && prevMState.LeftButton == ButtonState.Pressed;
+        }
+
         public static Vector2 GetMouseWorldPos()
         {
             return Camera.GetWorldLocation(new Vector2(mState.X, mState.Y));

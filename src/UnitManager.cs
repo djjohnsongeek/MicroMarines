@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 namespace Micro_Marine.src
@@ -8,24 +9,39 @@ namespace Micro_Marine.src
     {
         private Dictionary<ushort, Unit> selectedUnits;
         private List<Unit> units;
+        private SelectBox selectBox;
+        private SpriteBatch spriteBatch;
 
-        public UnitManager(List<Unit> units)
+        // TODO add units to selected units dict
+        // use selected units to draw waypoints
+
+        public UnitManager(List<Unit> units, SpriteBatch spriteBatch)
         {
+            this.spriteBatch = spriteBatch;
             selectedUnits = new Dictionary<ushort, Unit>();
             this.units = units;
+            selectBox = new SelectBox(spriteBatch.GraphicsDevice);
         }
 
-        public void Update(float dt)
+        public void Update(GameTime gameTime)
         {
-            // update unit selection
-
-
-            // update unit actions
+            selectBox.Update();
+            foreach (Unit unit in units)
+            {
+                unit.Update(gameTime);
+                selectBox.CheckSelection(unit);
+            }
+            selectBox.ResetSelection();
         }
 
         public void Draw()
         {
-            // draw units
+            foreach (Unit unit in units)
+            {
+                unit.Draw(spriteBatch);
+            }
+
+            selectBox.Draw(spriteBatch);
         }
 
 

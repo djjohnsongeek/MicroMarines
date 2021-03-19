@@ -1,2 +1,2 @@
 # Micro Marines
-The beginings of a simple RTS
+The beginnings of a simple RTS build with C# and the MonoGame (XNA) framework.
